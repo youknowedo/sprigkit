@@ -1,0 +1,7 @@
+{
+    "workspace": [
+        "./apps/cli",
+        "./apps/web"
+    ],
+    "nodeModulesDir": "auto"
+}
