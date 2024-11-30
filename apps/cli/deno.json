@@ -1,11 +1,12 @@
 {
     "name": "@repo/cli",
     "tasks": {
-        "dev": "deno run --watch --allow-read --allow-env --allow-net mod.ts run mod.ts"
+        "dev": "deno run --watch --allow-read --allow-env --allow-net mod.ts run game.js"
     },
     "imports": {
         "@trpc/server": "npm:@trpc/server@^11.0.0-rc.648",
         "commander": "npm:commander@^12.1.0",
+        "cors": "npm:cors@^2.8.5",
         "express": "npm:express@^4.21.1",
         "zod": "npm:zod@^3.23.8"
     },

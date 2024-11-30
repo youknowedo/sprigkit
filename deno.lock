@@ -5,11 +5,11 @@
     "npm:@sveltejs/adapter-node@^5.2.9": "5.2.9_@sveltejs+kit@2.8.5__@sveltejs+vite-plugin-svelte@4.0.2___svelte@5.2.10____acorn@8.14.0___vite@5.4.11__svelte@5.2.10___acorn@8.14.0__vite@5.4.11_rollup@4.27.4_@sveltejs+vite-plugin-svelte@4.0.2__svelte@5.2.10___acorn@8.14.0__vite@5.4.11_svelte@5.2.10__acorn@8.14.0_vite@5.4.11",
     "npm:@sveltejs/kit@2": "2.8.5_@sveltejs+vite-plugin-svelte@4.0.2__svelte@5.2.10___acorn@8.14.0__vite@5.4.11_svelte@5.2.10__acorn@8.14.0_vite@5.4.11",
     "npm:@sveltejs/vite-plugin-svelte@4": "4.0.2_svelte@5.2.10__acorn@8.14.0_vite@5.4.11",
-    "npm:@trpc/client@^11.0.0-rc.648": "11.0.0-rc.648_@trpc+server@11.0.0-rc.648__typescript@5.7.2_typescript@5.7.2",
     "npm:@trpc/server@^11.0.0-rc.648": "11.0.0-rc.648_typescript@5.7.2",
     "npm:@types/deno@2": "2.0.0",
     "npm:autoprefixer@^10.4.20": "10.4.20_postcss@8.4.49",
     "npm:commander@^12.1.0": "12.1.0",
+    "npm:cors@^2.8.5": "2.8.5",
     "npm:eslint-config-prettier@^9.1.0": "9.1.0_eslint@9.15.0",
     "npm:eslint-plugin-svelte@^2.36.0": "2.46.0_eslint@9.15.0_svelte@5.2.10__acorn@8.14.0_postcss@8.4.49",
     "npm:eslint@^9.7.0": "9.15.0",
@@ -28,6 +28,7 @@
     "npm:tailwindcss@^3.4.9": "3.4.15_postcss@8.4.49",
     "npm:typescript-eslint@8": "8.16.0_eslint@9.15.0_@typescript-eslint+parser@8.16.0__eslint@9.15.0__typescript@5.7.2_typescript@5.7.2",
     "npm:typescript@5": "5.7.2",
+    "npm:vite@5.4.11": "5.4.11",
     "npm:vite@^5.0.3": "5.4.11",
     "npm:zod@^3.23.8": "3.23.8"
   },
@@ -388,13 +389,6 @@
         "vitefu"
       ]
     },
-    "@trpc/client@11.0.0-rc.648_@trpc+server@11.0.0-rc.648__typescript@5.7.2_typescript@5.7.2": {
-      "integrity": "sha512-k4FfLKvJwbosUH8KYyZkC50RJHYtIyJECi5WhRXsvaf9a6lgrTlcA+osq815zYcAHo7wEgR9E9UdSTrpLdAQFQ==",
-      "dependencies": [
-        "@trpc/server",
-        "typescript"
-      ]
-    },
     "@trpc/server@11.0.0-rc.648_typescript@5.7.2": {
       "integrity": "sha512-nKW7FNM+QZrY/CVGlX3hFNIdUvbw6pwSJ+HzEF8GIeSJDKLHK7Ke1QJGI2mRW6oF9dCKMBXfuLaYY2dXfjfn7Q==",
       "dependencies": [
@@ -713,6 +707,13 @@
     },
     "cookie@0.7.1": {
       "integrity": "sha512-6DnInpx7SJ2AK3+CTUE/ZM0vWTUboZCegxhC2xiIydHR9jNuTAASBrfEpHhiGOZw/nX51bHt6YQl8jsGo4y/0w=="
+    },
+    "cors@2.8.5": {
+      "integrity": "sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==",
+      "dependencies": [
+        "object-assign",
+        "vary"
+      ]
     },
     "cross-spawn@7.0.6": {
       "integrity": "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==",
@@ -2062,6 +2063,7 @@
         "dependencies": [
           "npm:@trpc/server@^11.0.0-rc.648",
           "npm:commander@^12.1.0",
+          "npm:cors@^2.8.5",
           "npm:express@^4.21.1",
           "npm:zod@^3.23.8"
         ]
@@ -2073,7 +2075,6 @@
             "npm:@sveltejs/adapter-node@^5.2.9",
             "npm:@sveltejs/kit@2",
             "npm:@sveltejs/vite-plugin-svelte@4",
-            "npm:@trpc/client@^11.0.0-rc.648",
             "npm:@types/deno@2",
             "npm:autoprefixer@^10.4.20",
             "npm:eslint-config-prettier@^9.1.0",

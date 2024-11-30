@@ -5,9 +5,12 @@ import {
 } from "@trpc/server/adapters/express";
 import { appRouter } from "./router.ts";
 import { createContext } from "./trpc.ts";
+import cors from "cors";
 
 export const initExpress = () => {
     const app = express()
+
+    app.use(cors())
 
     app.use(
         "/trpc",

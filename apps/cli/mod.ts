@@ -1,4 +1,3 @@
-import { load } from './procedures/load.ts';
 import { Command } from "commander";
 import { initExpress } from "./server.ts";
 

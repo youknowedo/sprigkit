@@ -1,13 +1,16 @@
+<!-- @migration-task Error while migrating Svelte code: Expected token ; -->
 <script lang="ts">
+    import { trpc } from "$lib/trpc"
     import { webEngine, type WebEngineAPI } from "sprig/web";
     import { onMount } from "svelte";
     import "../app.css";
 
-    let canvas: HTMLCanvasElement | null = null;
-    let game: ReturnType<typeof webEngine> | null = null;
-    let isRunning = true;
+    let canvas: HTMLCanvasElement | null = $state(null);
+    let game: ReturnType<typeof webEngine> | null = $state(null);
+    let isRunning = $state(true);
 
-    let newCode: string | undefined = undefined;
+    let code = $state(""); 
+    let newCode: string | undefined = $state(undefined);
 
     const timeouts: ReturnType<typeof setTimeout>[] = [];
     const intervals: ReturnType<typeof setInterval>[] = [];
@@ -38,22 +41,7 @@
             },
         };
 
-        const code = document.getElementsByTagName("code")[0].innerText.trim();
-
-        const _addConsoleOutput = (type: "log" | "error", ...args: any[]) => {
-            const text = args.join(" ");
-            // TODO: Do something with errors
-            vscode.postMessage({
-                command: "log",
-                text: text,
-            });
-        };
-
-        const log = console.log;
-        const error = console.error;
-
-        console.log = (...args) => _addConsoleOutput("log", ...args);
-        console.error = (...args) => _addConsoleOutput("error", ...args);
+        console.log({ code });
 
         const run = new Function(`
             const {
@@ -88,35 +76,26 @@
             ${code}
         `);
         run(api);
-
-        console.log = log;
-        console.error = error;
     };
 
-    onMount(() => {
-        window.addEventListener("message", (event) => {
-            const message = event.data; // The JSON data our extension sent
-
-            switch (message.command) {
-                case "update":
-                    newCode = message.code;
-
-                    break;
-            }
-        });
-
+    onMount(async () => {
+        console.log(trpc)
+        const app = await trpc().load.query();
+        
+        code = app.code;
+           
         while (!canvas);
 
         runGame();
     });
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_click_events_have_key_events -->
 <div
     id="wrapper"
     class="relative flex flex-col items-center justify-center gap-4 w-screen h-screen overflow-hidden transition-colors bg-center bg-cover font-pcb bg-pcb-green/80 bg-pcb-overlay"
-    on:click={(e) => {
+    onclick={(e) => {
         canvas?.focus();
     }}
 >
@@ -140,12 +119,12 @@
             style="image-rendering: pixelated;"
             class="w-full h-full !border-none !outline-none"
             tabindex="0"
-        />
+></canvas>
     </div>
     <div class="flex items-center">
         <button
             class="sprig-button"
-            on:click={() => {
+            onclick={() => {
                 if (game) {
                     if (isRunning) {
                         game.cleanup();
@@ -153,8 +132,7 @@
                         intervals.forEach(clearInterval);
 
                         if (newCode) {
-                            document.getElementsByTagName("code")[0].innerHTML =
-                                newCode;
+                            code = newCode;
                         }
                     } else if (canvas) {
                         runGame();
@@ -171,10 +149,10 @@
 
 <style>
     :global(body) {
-        @apply bg-black
+        @apply bg-black;
     }
 
-    #wrapper:has(*:focus) {
+    #wrapper:has(:global(*:focus)) {
         @apply bg-pcb-green;
     }
 

@@ -22,11 +22,13 @@ export const trpc = () => {
                 // uses the httpSubscriptionLink for subscriptions
                 condition: (op) => op.type === 'subscription',
                 true: unstable_httpSubscriptionLink({
-                    url: `/trpc`,
+                    url: `${import.meta.env.DEV ?
+                        "http://localhost:8000" : ""}/trpc`,
                 }),
                 false: httpBatchLink({
-                    url: `/trpc`,
-                }),
+                    url: `${import.meta.env.DEV ?
+                        "http://localhost:8000" : ""}/trpc`,
+                })
             }),
         ],
     });
